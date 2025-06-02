@@ -17,7 +17,7 @@ public class UserService {
     }
 
     public List<User> getUsers(){
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
     }
 
     public void deleteUser(int id){
@@ -39,4 +39,11 @@ public class UserService {
         return userRepository.getOneByUsername(username);
     }
 
+    public User getUserByMail(String name) {
+        return userRepository.getOneByMail(name);
+    }
+
+    public void addUser(User student) {
+        userRepository.save(student);
+    }
 }

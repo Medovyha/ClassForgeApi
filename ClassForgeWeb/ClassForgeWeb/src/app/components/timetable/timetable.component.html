@@ -1,0 +1,59 @@
+<app-header title="Schedule"></app-header>
+
+
+<div class="w-full px-7 align-items-center">
+  <div class="flex justify-content-between">
+    <div class="flex align-items-center">
+      <p-button class="flex" size="large"  icon="pi pi-plus" (click)="addLessonDialog()"  [rounded]="true" [text]="true" />
+    </div>
+    <div class="week_buttons justify-content-end w-auto align-items-center flex flex-wrap">
+      <div class="flex flex-wrap justify-content-center align-items-center">
+        <span class="day_span">{{weekStartDate | date: "dd.MM.YYYY"}} - {{weekEndDate | date: "dd.MM.YYYY"}}</span>
+        <p-button class="flex" icon="pi pi-angle-left" size="large" (click)="previousWeek()" [rounded]="true" [text]="true" />
+        <p-button class="flex" size="large" (click)="currentWeekWeek()" [rounded]="true" [text]="true" label="today"/>
+        <p-button class="flex weekButton" icon="pi pi-angle-right" size="large" (click)="nextWeek()" [rounded]="true" [text]="true" />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="schedule max-w-content  text-align-center flex-wrap mx-7 mt-3 min-w-min">
+    <div class="grid justify-content-evenly">
+        <div *ngFor="let day of daysOfWeek.keys()" class="col dat-col" >
+
+
+          <div class="day text-center pb-3 mb-5 mt-3 min-w-56">
+<!--               [ngClass]="ifToday(daysOfWeek.get(day)) ? 'todayHighlight': '' "-->
+
+            {{day}}
+            <div class="day_date">{{daysOfWeek.get(day) | date: "dd.MM"}}</div>
+          </div>
+          <div class="lessons">
+            <div *ngFor="let lesson of days.get(day); index as i">
+              <div pDraggable (onDragStart)="dragStart(lesson)" (onDragEnd)="dragEnd()">
+
+              <app-lesson-row  [name]="lesson.student.info.surname + ' ' +lesson.student.info.name"
+
+                              [time]="lesson.timestamp" [length]="lesson.length" (click)="showDialog(lesson)"
+                              [isPaid]="lesson.is_paid" [isDone] ="lesson.is_done"
+                              (switchClickEvent)="onSwitchClick($event, lesson)"
+                              [id]="lesson.id"></app-lesson-row>
+
+
+              </div>
+              @if (days.get(day)?.at(i+1) != undefined){
+                @if (checkIfNext(lesson, days.get(day)?.at(i+1))){
+              <div pDroppable (onDrop)="drop(lesson)">
+                  <div class="line" ></div>
+              </div>
+                }
+              }
+              @else{
+              <div pDroppable (onDrop)="drop(lesson)">
+                 <div class="place" ></div>
+             </div>
+              }
+            </div>
+          </div>
+</div>
+</div>
+</div>

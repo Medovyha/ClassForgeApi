@@ -1,14 +1,18 @@
 package com.classforge.api.ClassForgeAPI.dao;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "teacher_student")
-public class teacher_student {
+public class TeacherStudent {
+    @Getter
     @Id
     @GeneratedValue
     private Integer id;
@@ -32,4 +36,10 @@ public class teacher_student {
 
     @OneToMany(mappedBy = "relation", fetch = FetchType.LAZY)
     private List<Price> prices;
+
+    @OneToMany(mappedBy = "relation", fetch = FetchType.EAGER)
+    private List<Lesson> lessons;
+
+    public TeacherStudent(User teacher, User student) {
+    }
 }

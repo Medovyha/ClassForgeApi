@@ -18,7 +18,7 @@ public class Price {
 
     @ManyToOne
     @JoinColumn(name="relation_id")
-    private teacher_student relation;
+    private TeacherStudent relation;
 
 
 }

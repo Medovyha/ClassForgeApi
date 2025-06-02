@@ -2,6 +2,7 @@ package com.classforge.api.ClassForgeAPI.dao;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Data
@@ -21,18 +22,20 @@ public class Lesson {
     private String homework;
 
     @Column(name = "is_done")
-    private Boolean is_done;
+    @ColumnDefault("False")
+    private Boolean is_done= false;
 
     @Column(name = "is_paid")
-    private Boolean is_paid;
+    @ColumnDefault("False")
+    private Boolean is_paid=false;
 
     @Column(name = "length")
-    private Integer length;
+    private Integer length = 60;
 
     @Column(name = "timestamp")
     private java.sql.Timestamp timestamp;
 
     @ManyToOne
     @JoinColumn(name="relation_id")
-    private teacher_student relation;
+    private TeacherStudent relation;
 }

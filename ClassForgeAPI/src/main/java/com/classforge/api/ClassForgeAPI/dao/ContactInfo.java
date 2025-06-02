@@ -2,9 +2,12 @@ package com.classforge.api.ClassForgeAPI.dao;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "contact_info")
 public class ContactInfo {
     @Id
@@ -20,4 +23,6 @@ public class ContactInfo {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+
 }

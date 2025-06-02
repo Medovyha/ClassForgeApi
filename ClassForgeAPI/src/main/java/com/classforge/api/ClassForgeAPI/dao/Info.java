@@ -23,6 +23,9 @@ public class Info {
     @Column(name="description")
     private String description;
 
+    @Column(name="year")
+    private Integer year;
+
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;
